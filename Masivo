@@ -1,0 +1,43 @@
+#######METAPREDICT###########
+
+#Secciones: 1)Generar txt con secuencias 2)resultados de prediccion 3)SUBIR-CARGAR-EDITAR DATAFRAME DE EXCEL
+
+#############1)LINUX-A partir de un CSV con secuencias de aminacidos (columna X=numero de SEQentrada) generar un archivo con una secuencia por linea de texto-->SEQsalida.txt###
+awk -F , '{print $X}' SEQentrada.csv > SEQsalida.txt
+
+##############2)PYTHON-Prediccion##################
+#Cargar metapredict
+import metapredict as meta
+
+#Generar una lista vacia
+SEQlist = []
+
+#Crear lista en python con cada una de las secuencias del txt
+with open('SEQsalida.txt', 'r') as f:
+    mySEQ = [line.strip() for line in f]
+#Comprobar que estan las secuencias 
+    print(mySEQ)
+
+# para cada linea de mySEQ aplicar la funcion de metapredict y colocar el resultado en la lista vacia
+for i in mySEQ:
+    x = meta.percent_disorder(i)
+    SEQlist.append(x)
+print(SEQlist)
+
+###########3)SUBIR-CARGAR-EDITAR DATAFRAME DE EXCEL############
+#Cargar PANDAS
+   import pandas as pd
+
+#cargar excel a un dataframe de pandas (dataframe=dfmeta)
+dfmeta = pd.read_excel('C:/Users/.../.../Excel.xlsx', engine='openpyxl')
+
+#para ver las lineas 99 a 105 de dataframe
+dfmeta.loc[99:105]
+
+#agregar los resultados de la lista que creamos en 2) al dataframe #percent_disorder sera el encabezado de la nueva columna creada
+dfmeta['percent_disorder'] = (SEQlist)
+
+##exportar pandas dataframe a excel
+dfmeta.to_excel (r'C:/Users/.../.../Excel.xlsx', index = False, header=True)
+
+
