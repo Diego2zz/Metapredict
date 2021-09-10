@@ -1,6 +1,6 @@
 #######METAPREDICT###########
 
-#Secciones: 1)Generar txt con secuencias 2)resultados de prediccion 3)SUBIR-CARGAR-EDITAR DATAFRAME DE EXCEL
+#Secciones: 1)Generar txt con secuencias [[2)resultados de prediccion 3)SUBIR-CARGAR-EDITAR DATAFRAME DE EXCEL]]
 
 #############1)LINUX-A partir de un CSV con secuencias de aminacidos (columna X=numero de SEQentrada) generar un archivo con una secuencia por linea de texto-->SEQsalida.txt###
 awk -F , '{print $X}' SEQentrada.csv > SEQsalida.txt
